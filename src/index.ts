@@ -5,11 +5,17 @@ import "config/db";
 import { ApolloServer } from "apollo-server-express";
 import { typeDefs, resolvers } from "graphql/schema/schema";
 const app = express();
-const graphqlServer = new ApolloServer({ typeDefs, resolvers });
-
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
+
+const graphqlServer = new ApolloServer({
+	typeDefs,
+	resolvers,
+	context: ({ req, res }) => ({
+		token: () => req.headers.authorization,
+	}),
+});
 
 graphqlServer.applyMiddleware({ app });
 app.get("/", (req: Request, res: Response) => {
