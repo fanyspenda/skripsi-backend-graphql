@@ -9,4 +9,19 @@ export const typeDef = `
 		email: String
 		data_source: String
 	}
+
+	type page {
+		page: Int
+		skip: Int
+	}
+
+	type linkedinPage {
+		totalPage: Int
+		pages: [page]
+	}
+
+	type queryLinkedin {
+		alumniLinkedin: [alumniLinkedin]
+		linkedinPage: linkedinPage
+	}
 `;

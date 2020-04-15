@@ -4,6 +4,7 @@ import morgan from "morgan";
 import "config/db";
 import { ApolloServer } from "apollo-server-express";
 import { typeDefs, resolvers } from "graphql/schema/schema";
+import paginate from "express-paginate";
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -13,7 +14,7 @@ const graphqlServer = new ApolloServer({
 	typeDefs,
 	resolvers,
 	context: ({ req, res }) => ({
-		token: () => req.headers.authorization,
+		token: req.headers.authorization,
 	}),
 });
 
