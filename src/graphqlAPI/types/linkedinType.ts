@@ -1,4 +1,6 @@
-export const typeDef = `
+import { gql } from "apollo-server-express";
+
+export const linkedinType = gql`
 	type alumniLinkedin {
 		_id: ID
 		name: String
@@ -10,18 +12,8 @@ export const typeDef = `
 		data_source: String
 	}
 
-	type page {
-		page: Int
-		skip: Int
-	}
-
-	type linkedinPage {
-		totalPage: Int
-		pages: [page]
-	}
-
-	type queryLinkedin {
+	type linkedinWithPagination {
 		alumniLinkedin: [alumniLinkedin]
-		linkedinPage: linkedinPage
+		linkedinPage: pagination
 	}
 `;

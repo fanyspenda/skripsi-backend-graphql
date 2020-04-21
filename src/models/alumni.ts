@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const alumniSchema = new Schema({
 	name: { type: String, required: true },
@@ -11,4 +11,4 @@ const alumniSchema = new Schema({
 	data_source: String,
 });
 
-export default alumniSchema;
+export const alumniModel = model("alumni_input", alumniSchema);
