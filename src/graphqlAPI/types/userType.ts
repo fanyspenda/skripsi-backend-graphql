@@ -9,15 +9,14 @@ export const userType = gql`
 		password: String
 	}
 
-	type login {
-		name: String
+	type token {
 		token: String
 	}
 
-	type register {
-		name: String
-		email: String
-		password: String
-		level: Int
+	input registerInput {
+		name: String!
+		email: String!
+		password: String!
+		level: Int!
 	}
 `;

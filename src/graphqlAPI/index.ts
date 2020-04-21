@@ -6,6 +6,7 @@ import { userType } from "./types/userType";
 import { linkedinResolver } from "./resolvers/linkedinResolver";
 import { paginationType } from "./types/paginationType";
 import { alumniResolver } from "./resolvers/alumniResolver";
+import { userResolver } from "./resolvers/userResolver";
 
 export const typeDefs = gql`
 	${linkedinType}
@@ -19,7 +20,8 @@ export const typeDefs = gql`
 	}
 
 	type Mutation {
-		login(email: String!, pass: String!): login
+		login(email: String!, password: String!): token
+		register(data: registerInput): user
 	}
 `;
 
@@ -29,11 +31,7 @@ export const resolvers = {
 		alumniWithPagination: alumniResolver.alumniWithPagination,
 	},
 	Mutation: {
-		login: (object: any, args: { email: string; pass: string }) => {
-			return {
-				name: "fany",
-				token: "A Token",
-			};
-		},
+		register: userResolver.register,
+		login: userResolver.login,
 	},
 };
