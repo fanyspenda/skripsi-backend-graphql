@@ -26,6 +26,7 @@ export const alumniResolver = {
 				totalPage,
 				pages: pagination(totalPage, page, limit),
 			},
+			totalData: dataTotal,
 		};
 	},
 };

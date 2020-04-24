@@ -15,5 +15,6 @@ export const alumniType = gql`
 	type alumniWithPagination {
 		alumni: [alumni]
 		alumniPage: pagination
+		totalData: Int
 	}
 `;

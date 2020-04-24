@@ -15,8 +15,8 @@ export const typeDefs = gql`
 	${paginationType}
 
 	type Query {
-		linkedinWithPagination(page: Int!, limit: Int!): linkedinWithPagination
-		alumniWithPagination(page: Int!, limit: Int!): alumniWithPagination
+		linkedinWithPagination(page: Int, limit: Int): linkedinWithPagination
+		alumniWithPagination(page: Int, limit: Int): alumniWithPagination
 	}
 
 	type Mutation {

@@ -27,6 +27,7 @@ export const linkedinResolver = {
 				totalPage,
 				pages: pagination(totalPage, page, limit),
 			},
+			totalData: dataTotal,
 		};
 	},
 };

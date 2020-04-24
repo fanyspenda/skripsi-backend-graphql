@@ -15,5 +15,6 @@ export const linkedinType = gql`
 	type linkedinWithPagination {
 		alumniLinkedin: [alumniLinkedin]
 		linkedinPage: pagination
+		totalData: Int
 	}
 `;
