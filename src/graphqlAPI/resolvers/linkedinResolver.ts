@@ -1,12 +1,25 @@
+import jwt from "jsonwebtoken";
 import linkedinModel from "models/linkedin";
-import { UserInputError } from "apollo-server-express";
+import { UserInputError, AuthenticationError } from "apollo-server-express";
 import { pagination } from "graphqlAPI/modules/paginationModule";
 
 export const linkedinResolver = {
 	linkedinWithPagination: async (
-		object: any,
-		args: { page: number; limit: number }
+		parent: any,
+		args: { page: number; limit: number },
+		context: { token: string },
+		info: any
 	) => {
+		const surelyThisIsToken = jwt.verify(
+			context.token.split(" ")[1],
+			"secret",
+			(err, decoded) => {
+				if (err) {
+					throw new AuthenticationError(err.message);
+				}
+			}
+		);
+
 		const { page, limit } = args;
 
 		const [data, dataTotal] = await Promise.all([

@@ -14,7 +14,7 @@ const graphqlServer = new ApolloServer({
 	typeDefs,
 	resolvers,
 	context: ({ req, res }) => ({
-		token: req.headers.authorization,
+		token: req.headers.authorization || "",
 	}),
 });
 

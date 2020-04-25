@@ -1,5 +1,4 @@
 import { gql } from "apollo-server-express";
-import token from "lib/authHandler";
 import { alumniType } from "./types/alumniType";
 import { linkedinType } from "./types/linkedinType";
 import { userType } from "./types/userType";
