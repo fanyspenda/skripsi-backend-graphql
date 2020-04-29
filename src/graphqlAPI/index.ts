@@ -27,6 +27,7 @@ export const typeDefs = gql`
 		login(email: String!, password: String!): token
 		register(data: registerInput): user
 		addMajor(name: String!): major
+		updateMajor(id: String!, name: String!): major
 	}
 `;
 
@@ -41,5 +42,6 @@ export const resolvers = {
 		register: userResolver.register,
 		login: userResolver.login,
 		addMajor: majorResolver.addMajor,
+		updateMajor: majorResolver.updateMajor,
 	},
 };
