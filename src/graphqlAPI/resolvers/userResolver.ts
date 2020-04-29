@@ -31,7 +31,7 @@ export const userResolver = {
 			let data = result as user;
 			if (bcryptjs.compareSync(args.password, data.password)) {
 				const token = jwt.sign(
-					{ id: data._id, name: data.name, level: data.level },
+					{ name: data.name, level: data.level },
 					"secret",
 					{
 						expiresIn: 86400,

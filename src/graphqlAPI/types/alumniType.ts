@@ -17,4 +17,8 @@ export const alumniType = gql`
 		alumniPage: pagination
 		totalData: Int
 	}
+
+	type alumniDetail {
+		alumni: alumni
+	}
 `;

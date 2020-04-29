@@ -1,7 +1,12 @@
 import jwt from "jsonwebtoken";
 import linkedinModel from "models/linkedin";
-import { UserInputError, AuthenticationError } from "apollo-server-express";
+import {
+	UserInputError,
+	AuthenticationError,
+	ApolloError,
+} from "apollo-server-express";
 import { pagination } from "graphqlAPI/modules/paginationModule";
+import { verifyToken } from "graphqlAPI/modules/verifyToken";
 
 export const linkedinResolver = {
 	linkedinWithPagination: async (
@@ -10,18 +15,8 @@ export const linkedinResolver = {
 		context: { token: string },
 		info: any
 	) => {
-		const surelyThisIsToken = jwt.verify(
-			context.token.split(" ")[1],
-			"secret",
-			(err, decoded) => {
-				if (err) {
-					throw new AuthenticationError(err.message);
-				}
-			}
-		);
-
+		verifyToken(context.token);
 		const { page, limit } = args;
-
 		const [data, dataTotal] = await Promise.all([
 			linkedinModel
 				.find({})
@@ -42,5 +37,19 @@ export const linkedinResolver = {
 			},
 			totalData: dataTotal,
 		};
+	},
+	linkedinDetail: async (
+		parent: any,
+		args: { id: string },
+		context: { token: string },
+		info: any
+	) => {
+		verifyToken(context.token);
+		try {
+			const data = await linkedinModel.findById(args.id);
+			return data;
+		} catch (err) {
+			throw new ApolloError(err);
+		}
 	},
 };

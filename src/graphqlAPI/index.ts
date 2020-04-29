@@ -15,7 +15,9 @@ export const typeDefs = gql`
 
 	type Query {
 		linkedinWithPagination(page: Int, limit: Int): linkedinWithPagination
+		linkedinDetail(id: String!): alumniLinkedin
 		alumniWithPagination(page: Int, limit: Int): alumniWithPagination
+		alumniDetail(id: String!): alumni
 	}
 
 	type Mutation {
@@ -28,6 +30,8 @@ export const resolvers = {
 	Query: {
 		linkedinWithPagination: linkedinResolver.linkedinWithPagination,
 		alumniWithPagination: alumniResolver.alumniWithPagination,
+		linkedinDetail: linkedinResolver.linkedinDetail,
+		alumniDetail: alumniResolver.alumniDetail,
 	},
 	Mutation: {
 		register: userResolver.register,

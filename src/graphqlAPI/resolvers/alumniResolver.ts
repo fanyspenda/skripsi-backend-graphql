@@ -1,12 +1,21 @@
 import { alumniModel } from "models/alumni";
-import { UserInputError } from "apollo-server-express";
+import {
+	UserInputError,
+	AuthenticationError,
+	ApolloError,
+} from "apollo-server-express";
 import { pagination } from "graphqlAPI/modules/paginationModule";
+import jwt from "jsonwebtoken";
+import { verifyToken } from "graphqlAPI/modules/verifyToken";
 
 export const alumniResolver = {
 	alumniWithPagination: async (
 		object: any,
-		args: { page: number; limit: number }
+		args: { page: number; limit: number },
+		context: { token: string },
+		info: any
 	) => {
+		verifyToken(context.token);
 		const { page, limit } = args;
 
 		const [data, dataTotal] = await Promise.all([
@@ -28,5 +37,19 @@ export const alumniResolver = {
 			},
 			totalData: dataTotal,
 		};
+	},
+	alumniDetail: async (
+		object: any,
+		args: { id: string },
+		context: { token: string },
+		info: any
+	) => {
+		try {
+			verifyToken(context.token);
+			const data = alumniModel.findById(args.id);
+			return data;
+		} catch (err) {
+			throw new ApolloError(err);
+		}
 	},
 };
