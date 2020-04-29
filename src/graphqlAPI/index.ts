@@ -1,3 +1,4 @@
+import { majorType } from "./types/majorType";
 import { gql } from "apollo-server-express";
 import { alumniType } from "./types/alumniType";
 import { linkedinType } from "./types/linkedinType";
@@ -6,12 +7,14 @@ import { linkedinResolver } from "./resolvers/linkedinResolver";
 import { paginationType } from "./types/paginationType";
 import { alumniResolver } from "./resolvers/alumniResolver";
 import { userResolver } from "./resolvers/userResolver";
+import { majorResolver } from "./resolvers/majorResolver";
 
 export const typeDefs = gql`
 	${linkedinType}
 	${userType}
 	${alumniType}
 	${paginationType}
+	${majorType}
 
 	type Query {
 		linkedinWithPagination(page: Int, limit: Int): linkedinWithPagination
@@ -23,6 +26,7 @@ export const typeDefs = gql`
 	type Mutation {
 		login(email: String!, password: String!): token
 		register(data: registerInput): user
+		addMajor(name: String!): major
 	}
 `;
 
@@ -36,5 +40,6 @@ export const resolvers = {
 	Mutation: {
 		register: userResolver.register,
 		login: userResolver.login,
+		addMajor: majorResolver.addMajor,
 	},
 };
