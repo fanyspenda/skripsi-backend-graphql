@@ -19,6 +19,6 @@ export const linkedinType = gql`
 	}
 
 	type linkedinDetail {
-		alumni: alumniLinkedin
+		alumniLinkedin: alumniLinkedin
 	}
 `;

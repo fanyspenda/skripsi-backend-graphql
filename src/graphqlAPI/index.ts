@@ -21,6 +21,7 @@ export const typeDefs = gql`
 		linkedinDetail(id: String!): alumniLinkedin
 		alumniWithPagination(page: Int, limit: Int): alumniWithPagination
 		alumniDetail(id: String!): alumni
+		majorWithPagination(page: Int, limit: Int): majorWithPagination
 	}
 
 	type Mutation {
@@ -28,6 +29,7 @@ export const typeDefs = gql`
 		register(data: registerInput): user
 		addMajor(name: String!): major
 		updateMajor(id: String!, name: String!): major
+		deleteMajor(id: String!): major
 	}
 `;
 
@@ -35,6 +37,7 @@ export const resolvers = {
 	Query: {
 		linkedinWithPagination: linkedinResolver.linkedinWithPagination,
 		alumniWithPagination: alumniResolver.alumniWithPagination,
+		majorWithPagination: majorResolver.majorWithPagination,
 		linkedinDetail: linkedinResolver.linkedinDetail,
 		alumniDetail: alumniResolver.alumniDetail,
 	},
@@ -43,5 +46,6 @@ export const resolvers = {
 		login: userResolver.login,
 		addMajor: majorResolver.addMajor,
 		updateMajor: majorResolver.updateMajor,
+		deleteMajor: majorResolver.deleteMajor,
 	},
 };

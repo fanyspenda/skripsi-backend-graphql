@@ -5,4 +5,10 @@ export const majorType = gql`
 		_id: ID
 		name: String
 	}
+
+	type majorWithPagination {
+		majors: [major]
+		majorPage: pagination
+		totalData: Int
+	}
 `;
