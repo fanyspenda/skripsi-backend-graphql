@@ -8,9 +8,20 @@ import { pagination } from "graphqlAPI/modules/paginationModule";
 import jwt from "jsonwebtoken";
 import { verifyToken } from "graphqlAPI/modules/verifyToken";
 
+interface alumni {
+	name: string;
+	entry_year: number;
+	graduate_year: number;
+	major: string;
+	work_at: string;
+	work_position: string;
+	email: string;
+	data_source: string;
+}
+
 export const alumniResolver = {
 	alumniWithPagination: async (
-		object: any,
+		parent: any,
 		args: { page: number; limit: number },
 		context: { token: string },
 		info: any
@@ -39,7 +50,7 @@ export const alumniResolver = {
 		};
 	},
 	alumniDetail: async (
-		object: any,
+		parent: any,
 		args: { id: string },
 		context: { token: string },
 		info: any
@@ -50,6 +61,20 @@ export const alumniResolver = {
 			return data;
 		} catch (err) {
 			throw new ApolloError(err);
+		}
+	},
+	addAlumni: async (
+		parent: any,
+		args: { data: alumni },
+		context: { token: string },
+		info: any
+	) => {
+		verifyToken(context.token);
+		try {
+			const result = alumniModel.create({ ...args.data });
+			return result;
+		} catch (error) {
+			throw new ApolloError(error);
 		}
 	},
 };

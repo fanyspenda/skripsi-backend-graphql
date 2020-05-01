@@ -21,4 +21,14 @@ export const alumniType = gql`
 	type alumniDetail {
 		alumni: alumni
 	}
+
+	input alumniInput {
+		name: String!
+		entry_year: Int!
+		graduate_year: Int!
+		work_at: String
+		work_position: String
+		email: String
+		data_source: String!
+	}
 `;

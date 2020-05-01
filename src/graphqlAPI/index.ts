@@ -1,3 +1,4 @@
+import { counterType } from "./types/counterType";
 import { majorType } from "./types/majorType";
 import { gql } from "apollo-server-express";
 import { alumniType } from "./types/alumniType";
@@ -8,6 +9,7 @@ import { paginationType } from "./types/paginationType";
 import { alumniResolver } from "./resolvers/alumniResolver";
 import { userResolver } from "./resolvers/userResolver";
 import { majorResolver } from "./resolvers/majorResolver";
+import { counterResolver } from "./resolvers/counterResolver";
 
 export const typeDefs = gql`
 	${linkedinType}
@@ -15,6 +17,7 @@ export const typeDefs = gql`
 	${alumniType}
 	${paginationType}
 	${majorType}
+	${counterType}
 
 	type Query {
 		linkedinWithPagination(page: Int, limit: Int): linkedinWithPagination
@@ -22,9 +25,13 @@ export const typeDefs = gql`
 		alumniWithPagination(page: Int, limit: Int): alumniWithPagination
 		alumniDetail(id: String!): alumni
 		majorWithPagination(page: Int, limit: Int): majorWithPagination
+		countWorkingAlumni: countWorking
+		countNotWorkingAlumni: countNotWorking
+		countTotalAlumni: countTotalAlumni
 	}
 
 	type Mutation {
+		addAlumni(data: alumniInput): alumni
 		login(email: String!, password: String!): token
 		register(data: registerInput): user
 		addMajor(name: String!): major
@@ -40,6 +47,9 @@ export const resolvers = {
 		majorWithPagination: majorResolver.majorWithPagination,
 		linkedinDetail: linkedinResolver.linkedinDetail,
 		alumniDetail: alumniResolver.alumniDetail,
+		countWorkingAlumni: counterResolver.countWorking,
+		countNotWorkingAlumni: counterResolver.countNotWorking,
+		countTotalAlumni: counterResolver.countTotalAlumni,
 	},
 	Mutation: {
 		register: userResolver.register,
@@ -47,5 +57,6 @@ export const resolvers = {
 		addMajor: majorResolver.addMajor,
 		updateMajor: majorResolver.updateMajor,
 		deleteMajor: majorResolver.deleteMajor,
+		addAlumni: alumniResolver.addAlumni,
 	},
 };
