@@ -31,9 +31,11 @@ export const typeDefs = gql`
 	}
 
 	type Mutation {
-		addAlumni(data: alumniInput): alumni
 		login(email: String!, password: String!): token
 		register(data: registerInput): user
+		addAlumni(data: alumniInput): alumni
+		updateAlumni(id: String!, data: alumniInput): alumni
+		deleteAlumni(id: String!): alumni
 		addMajor(name: String!): major
 		updateMajor(id: String!, name: String!): major
 		deleteMajor(id: String!): major
@@ -58,5 +60,7 @@ export const resolvers = {
 		updateMajor: majorResolver.updateMajor,
 		deleteMajor: majorResolver.deleteMajor,
 		addAlumni: alumniResolver.addAlumni,
+		updateAlumni: alumniResolver.updateAlumni,
+		deleteAlumni: alumniResolver.deleteAlumni,
 	},
 };

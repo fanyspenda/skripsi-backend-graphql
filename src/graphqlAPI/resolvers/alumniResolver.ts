@@ -1,11 +1,6 @@
 import { alumniModel } from "models/alumni";
-import {
-	UserInputError,
-	AuthenticationError,
-	ApolloError,
-} from "apollo-server-express";
+import { UserInputError, ApolloError } from "apollo-server-express";
 import { pagination } from "graphqlAPI/modules/paginationModule";
-import jwt from "jsonwebtoken";
 import { verifyToken } from "graphqlAPI/modules/verifyToken";
 
 interface alumni {
@@ -73,6 +68,37 @@ export const alumniResolver = {
 		try {
 			const result = alumniModel.create({ ...args.data });
 			return result;
+		} catch (error) {
+			throw new ApolloError(error);
+		}
+	},
+	deleteAlumni: async (
+		parent: any,
+		args: { id: number },
+		context: { token: string },
+		info: any
+	) => {
+		verifyToken(context.token);
+		try {
+			const data = alumniModel.findByIdAndDelete(args.id);
+			return data;
+		} catch (error) {
+			throw new ApolloError(error);
+		}
+	},
+
+	updateAlumni: async (
+		parent: any,
+		args: { id: number; data: any },
+		context: { token: string },
+		info: any
+	) => {
+		try {
+			verifyToken(context.token);
+			const data = alumniModel.findByIdAndUpdate(args.id, args.data, {
+				new: true,
+			});
+			return data;
 		} catch (error) {
 			throw new ApolloError(error);
 		}
