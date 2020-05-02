@@ -6,6 +6,7 @@ export const linkedinType = gql`
 		name: String
 		entry_year: String
 		graduate_year: String
+		major: String
 		work_at: String
 		work_position: String
 		email: String
