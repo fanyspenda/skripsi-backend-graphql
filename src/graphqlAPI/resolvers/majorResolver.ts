@@ -60,7 +60,9 @@ export const majorResolver = {
 	) => {
 		try {
 			verifyToken(context.token);
-			const { page, limit } = args;
+			let { page, limit } = args;
+			!page ? (page = 1) : null;
+			!limit ? (limit = 0) : null;
 			const [data, dataTotal] = await Promise.all([
 				majorModel
 					.find({})

@@ -27,6 +27,7 @@ export const alumniType = gql`
 		name: String!
 		entry_year: Int!
 		graduate_year: Int!
+		major: String!
 		work_at: String
 		work_position: String
 		email: String
