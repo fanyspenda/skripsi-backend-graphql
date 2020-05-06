@@ -25,6 +25,7 @@ export const typeDefs = gql`
 		alumniWithPagination(page: Int, limit: Int): alumniWithPagination
 		alumniDetail(id: String!): alumni
 		majorWithPagination(page: Int, limit: Int): majorWithPagination
+		majorDetail(id: String!): major
 		countWorkingAlumni: countWorking
 		countNotWorkingAlumni: countNotWorking
 		countTotalAlumni: countTotalAlumni
@@ -49,6 +50,7 @@ export const resolvers = {
 		majorWithPagination: majorResolver.majorWithPagination,
 		linkedinDetail: linkedinResolver.linkedinDetail,
 		alumniDetail: alumniResolver.alumniDetail,
+		majorDetail: majorResolver.majorDetail,
 		countWorkingAlumni: counterResolver.countWorking,
 		countNotWorkingAlumni: counterResolver.countNotWorking,
 		countTotalAlumni: counterResolver.countTotalAlumni,

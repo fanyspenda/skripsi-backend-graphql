@@ -87,4 +87,18 @@ export const majorResolver = {
 			return new ApolloError(error);
 		}
 	},
+	majorDetail: async (
+		parent: any,
+		args: { id: string },
+		context: { token: string },
+		info: any
+	) => {
+		verifyToken(context.token);
+		try {
+			const result = majorModel.findById(args.id);
+			return result;
+		} catch (error) {
+			throw new ApolloError(error);
+		}
+	},
 };
