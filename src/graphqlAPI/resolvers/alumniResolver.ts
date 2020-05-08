@@ -17,21 +17,25 @@ interface alumni {
 export const alumniResolver = {
 	alumniWithPagination: async (
 		parent: any,
-		args: { page: number; limit: number },
+		args: { page: number; limit: number; name: string },
 		context: { token: string },
 		info: any
 	) => {
 		verifyToken(context.token);
-		const { page, limit } = args;
-
+		const { page, limit, name } = args;
+		const searchedName = name ? name : "";
 		const [data, dataTotal] = await Promise.all([
 			alumniModel
-				.find({})
+				.find({ name: { $regex: searchedName, $options: "i" } })
 				.skip(page * limit - limit)
 				.limit(limit),
-			alumniModel.countDocuments({}),
+			alumniModel.countDocuments({
+				name: { $regex: searchedName, $options: "i" },
+			}),
 		]);
-		const totalPage = Math.ceil(dataTotal / limit);
+
+		let totalPage = Math.ceil(dataTotal / limit);
+		if (totalPage == 0) totalPage = 1;
 		if (page <= 0 || page > totalPage) {
 			throw new UserInputError("Salah Input Nomor Halaman");
 		}

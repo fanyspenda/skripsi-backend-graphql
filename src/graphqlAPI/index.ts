@@ -20,9 +20,18 @@ export const typeDefs = gql`
 	${counterType}
 
 	type Query {
-		linkedinWithPagination(page: Int, limit: Int): linkedinWithPagination
+		searchLinkedin(name: String!): linkedinWithPagination
+		linkedinWithPagination(
+			page: Int
+			limit: Int
+			name: String
+		): linkedinWithPagination
 		linkedinDetail(id: String!): alumniLinkedin
-		alumniWithPagination(page: Int, limit: Int): alumniWithPagination
+		alumniWithPagination(
+			page: Int
+			limit: Int
+			name: String
+		): alumniWithPagination
 		alumniDetail(id: String!): alumni
 		majorWithPagination(page: Int, limit: Int): majorWithPagination
 		majorDetail(id: String!): major
