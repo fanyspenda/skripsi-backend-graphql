@@ -22,6 +22,10 @@ interface register {
 	data: Omit<user, "_id" | "level">;
 }
 
+interface addUser {
+	data: Omit<user, "_id">;
+}
+
 type login = Pick<user, "email" | "password">;
 
 export const userResolver = {
@@ -89,6 +93,27 @@ export const userResolver = {
 			totalData: dataTotal,
 		};
 	},
+	addUser: async (
+		parents: any,
+		args: { data: any },
+		context: { token: string },
+		info: any
+	) => {
+		verifyToken(context.token);
+		try {
+			const { name, level, email, password } = args.data;
+			const newPassword = bcryptjs.hashSync(password, 10);
+			await userModel.create({
+				name,
+				level,
+				email,
+				password: newPassword,
+			});
+			return true;
+		} catch (error) {
+			throw new ApolloError(error);
+		}
+	},
 	updateUser: async (
 		parents: any,
 		args: { id: String; data: any },
@@ -99,6 +124,23 @@ export const userResolver = {
 		try {
 			const { name, email, level } = await args.data;
 			await userModel.findByIdAndUpdate(args.id, { name, email, level });
+			return true;
+		} catch (error) {
+			throw new ApolloError(error);
+		}
+	},
+	resetPass: async (
+		parents: any,
+		args: { id: string; password: string },
+		context: { token: string },
+		info: any
+	) => {
+		verifyToken(context.token);
+		try {
+			const hashedPass = bcryptjs.hashSync(args.password, 10);
+			await userModel.findByIdAndUpdate(args.id, {
+				password: hashedPass,
+			});
 			return true;
 		} catch (error) {
 			throw new ApolloError(error);

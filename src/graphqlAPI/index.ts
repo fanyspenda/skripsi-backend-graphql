@@ -50,7 +50,9 @@ export const typeDefs = gql`
 		addMajor(name: String!): major
 		updateMajor(id: String!, name: String!): major
 		deleteMajor(id: String!): major
+		addUser(data: addUserInput): Boolean
 		updateUser(id: String!, data: updateUserInput): Boolean
+		resetPass(id: String!, password: String!): Boolean
 	}
 `;
 
@@ -76,6 +78,8 @@ export const resolvers = {
 		addAlumni: alumniResolver.addAlumni,
 		updateAlumni: alumniResolver.updateAlumni,
 		deleteAlumni: alumniResolver.deleteAlumni,
+		addUser: userResolver.addUser,
 		updateUser: userResolver.updateUser,
+		resetPass: userResolver.resetPass,
 	},
 };

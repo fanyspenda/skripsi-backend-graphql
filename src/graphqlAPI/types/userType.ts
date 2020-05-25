@@ -13,6 +13,13 @@ export const userType = gql`
 		token: String
 	}
 
+	input addUserInput {
+		name: String!
+		email: String!
+		level: Int!
+		password: String!
+	}
+
 	input registerInput {
 		name: String!
 		email: String!
