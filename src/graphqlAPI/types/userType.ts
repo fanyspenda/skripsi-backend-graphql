@@ -19,4 +19,16 @@ export const userType = gql`
 		password: String!
 		level: Int!
 	}
+
+	input updateUserInput {
+		name: String!
+		email: String!
+		level: Int!
+	}
+
+	type userWithPagination {
+		users: [user]
+		userPage: pagination
+		totalData: Int
+	}
 `;

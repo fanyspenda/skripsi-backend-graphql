@@ -32,8 +32,9 @@ export const typeDefs = gql`
 			limit: Int
 			name: String
 		): alumniWithPagination
-		alumniDetail(id: String!): alumni
 		majorWithPagination(page: Int, limit: Int): majorWithPagination
+		userWithPagination(page: Int, limit: Int): userWithPagination
+		alumniDetail(id: String!): alumni
 		majorDetail(id: String!): major
 		countWorkingAlumni: countWorking
 		countNotWorkingAlumni: countNotWorking
@@ -49,6 +50,7 @@ export const typeDefs = gql`
 		addMajor(name: String!): major
 		updateMajor(id: String!, name: String!): major
 		deleteMajor(id: String!): major
+		updateUser(id: String!, data: updateUserInput): Boolean
 	}
 `;
 
@@ -57,6 +59,7 @@ export const resolvers = {
 		linkedinWithPagination: linkedinResolver.linkedinWithPagination,
 		alumniWithPagination: alumniResolver.alumniWithPagination,
 		majorWithPagination: majorResolver.majorWithPagination,
+		userWithPagination: userResolver.userWithPagination,
 		linkedinDetail: linkedinResolver.linkedinDetail,
 		alumniDetail: alumniResolver.alumniDetail,
 		majorDetail: majorResolver.majorDetail,
@@ -73,5 +76,6 @@ export const resolvers = {
 		addAlumni: alumniResolver.addAlumni,
 		updateAlumni: alumniResolver.updateAlumni,
 		deleteAlumni: alumniResolver.deleteAlumni,
+		updateUser: userResolver.updateUser,
 	},
 };

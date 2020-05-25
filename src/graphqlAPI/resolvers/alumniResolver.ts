@@ -90,7 +90,6 @@ export const alumniResolver = {
 			throw new ApolloError(error);
 		}
 	},
-
 	updateAlumni: async (
 		parent: any,
 		args: { id: number; data: any },
