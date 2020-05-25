@@ -17,7 +17,6 @@ export const userType = gql`
 		name: String!
 		email: String!
 		password: String!
-		level: Int!
 	}
 
 	input updateUserInput {

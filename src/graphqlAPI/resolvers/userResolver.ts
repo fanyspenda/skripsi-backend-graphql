@@ -18,17 +18,17 @@ interface user {
 	level: number;
 }
 
-interface data {
-	data: Omit<user, "_id">;
+interface register {
+	data: Omit<user, "_id" | "level">;
 }
 
 type login = Pick<user, "email" | "password">;
 
 export const userResolver = {
-	register: async (object: any, args: data) => {
+	register: async (object: any, args: register) => {
 		const newData = args.data;
 		newData.password = bcryptjs.hashSync(args.data.password, 10);
-		const result = await userModel.create({ ...newData });
+		const result = await userModel.create({ ...newData, level: 0 });
 		if (result) return result;
 		else throw new ApolloError("something wrong when saving to database");
 	},
