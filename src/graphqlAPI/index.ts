@@ -53,6 +53,7 @@ export const typeDefs = gql`
 		addUser(data: addUserInput): Boolean
 		updateUser(id: String!, data: updateUserInput): Boolean
 		resetPass(id: String!, password: String!): Boolean
+		deleteUser(id: String!): Boolean
 	}
 `;
 
@@ -81,5 +82,6 @@ export const resolvers = {
 		addUser: userResolver.addUser,
 		updateUser: userResolver.updateUser,
 		resetPass: userResolver.resetPass,
+		deleteUser: userResolver.deleteUser,
 	},
 };

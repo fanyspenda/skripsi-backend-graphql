@@ -146,4 +146,18 @@ export const userResolver = {
 			throw new ApolloError(error);
 		}
 	},
+	deleteUser: async (
+		parents: any,
+		args: { id: string },
+		context: { token: string },
+		info: any
+	) => {
+		verifyToken(context.token);
+		try {
+			await userModel.findByIdAndDelete(args.id);
+			return true;
+		} catch (error) {
+			throw new ApolloError(error);
+		}
+	},
 };
