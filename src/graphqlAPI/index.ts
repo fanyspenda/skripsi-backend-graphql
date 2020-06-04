@@ -17,7 +17,6 @@ export const typeDefs = gql`
 	${alumniType}
 	${paginationType}
 	${majorType}
-	${counterType}
 
 	type Query {
 		searchLinkedin(name: String!): linkedinWithPagination
@@ -36,9 +35,11 @@ export const typeDefs = gql`
 		userWithPagination(page: Int, limit: Int): userWithPagination
 		alumniDetail(id: String!): alumni
 		majorDetail(id: String!): major
-		countWorkingAlumni: countWorking
-		countNotWorkingAlumni: countNotWorking
-		countTotalAlumni: countTotalAlumni
+		countWorkingAlumni: Int
+		countNotWorkingAlumni: Int
+		countTotalAlumni: Int
+		countAlumniManual: Int
+		countLinkedin: Int
 	}
 
 	type Mutation {
@@ -69,6 +70,8 @@ export const resolvers = {
 		countWorkingAlumni: counterResolver.countWorking,
 		countNotWorkingAlumni: counterResolver.countNotWorking,
 		countTotalAlumni: counterResolver.countTotalAlumni,
+		countAlumniManual: counterResolver.countAlumniManual,
+		countLinkedin: counterResolver.countLinkedin,
 	},
 	Mutation: {
 		register: userResolver.register,

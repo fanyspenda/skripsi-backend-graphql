@@ -12,4 +12,12 @@ export const counterType = gql`
 	type countTotalAlumni {
 		total: Int
 	}
+
+	type countAlumniManual {
+		total: Int
+	}
+
+	type countLinkedin {
+		total: Int
+	}
 `;
