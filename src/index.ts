@@ -23,7 +23,7 @@ app.get("/", (req: Request, res: Response) => {
 	res.send("ini server graphQL");
 });
 
-const port = 4100;
+const port = process.env.PORT || 4100;
 app.listen(port, () => {
 	console.log(
 		"server graphQL berjalan di port: " + port + graphqlServer.graphqlPath
